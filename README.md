@@ -13,6 +13,7 @@ This repository is a living portfolio of that philosophy in practice—each tool
 | Tool | UX Problem | Link |
 |------|------------|------|
 | [Research Plan Challenger](./tools/research-plan-challenger/) | Untested assumptions hide in research plans until it's too late | [View code →](./tools/research-plan-challenger/) |
+| [The UX Research Interview Refiner](./tools/interview-refiner/) | Interview guides hide leading questions and coverage gaps until fieldwork | [View code →](./tools/interview-refiner/) |
 | [Transcript Dual-Lens Analyzer](./tools/transcript-dual-lens/) | Single-researcher synthesis is vulnerable to confirmation bias | [View code →](./tools/transcript-dual-lens/) |
 | [Insight Rigidity Checker](./tools/insight-rigidity-checker/) | Teams fall in love with insights before validating them against evidence | [View code →](./tools/insight-rigidity-checker/) |
 

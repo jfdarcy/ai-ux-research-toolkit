@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
