@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="UX Research AI Toolkit — Augmented Rigor & The Co-Researcher Model" />
+  <title>AI UX Research Toolkit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Lora', 'Georgia', 'serif'],
+          },
+          colors: {
+            ink: '#1a1a1a',
+            stone: '#6b6b6b',
+            mist: '#f7f6f3',
+            accent: '#2d4a3e',
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-mist text-ink font-sans antialiased">
+
+  <!-- Header -->
+  <header class="border-b border-stone/10 bg-white/80 backdrop-blur-sm sticky top-0 z-10">
+    <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+      <a href="#" class="text-sm font-medium tracking-tight text-ink hover:text-accent transition-colors">
+        AI UX Research Toolkit
+      </a>
+      <a
+        href="https://github.com/jfdarcy/ai-ux-research-toolkit"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm text-stone hover:text-ink transition-colors"
+      >
+        GitHub ↗
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6">
+
+    <!-- Hero -->
+    <section class="pt-20 pb-16">
+      <p class="text-xs font-medium uppercase tracking-widest text-stone mb-6">Portfolio</p>
+      <h1 class="font-serif text-4xl sm:text-5xl font-semibold leading-tight text-ink mb-6">
+        Augmented Rigor<br />
+        <span class="text-stone font-normal italic">&amp; The Co-Researcher Model</span>
+      </h1>
+      <p class="text-lg text-stone leading-relaxed max-w-2xl">
+        UX research tools that treat AI as a tireless co-researcher—not a shortcut.
+        Each tool targets a specific moment where human judgment is most at risk.
+      </p>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="pb-20">
+      <div class="border-l-2 border-accent pl-6 sm:pl-8">
+        <p class="text-sm font-medium text-accent mb-3">🧠 My Philosophy</p>
+        <blockquote class="font-serif text-xl sm:text-2xl leading-relaxed text-ink italic mb-6">
+          To enhance the depth and objectivity of my work, I treat Artificial Intelligence as a tireless
+          "co-researcher" rather than a simple automation tool. My goal is not to work faster, but to leverage
+          AI to challenge my own assumptions and ensure the highest quality of insights.
+        </blockquote>
+        <p class="text-stone leading-relaxed">
+          The tools below are concrete proof of that philosophy—each one designed to introduce friction
+          at the right moment, not remove it. They exist because the hardest part of research isn't
+          collecting data; it's knowing when you're wrong.
+        </p>
+      </div>
+    </section>
+
+    <!-- Tools -->
+    <section class="pb-24">
+      <h2 class="text-xs font-medium uppercase tracking-widest text-stone mb-10">Tools</h2>
+
+      <div class="space-y-16">
+
+        <!-- Tool 1 -->
+        <article class="group">
+          <div class="flex items-start gap-4 mb-4">
+            <span class="text-xs font-medium text-stone mt-1 tabular-nums">01</span>
+            <div class="flex-1">
+              <h3 class="font-serif text-2xl font-semibold text-ink mb-1 group-hover:text-accent transition-colors">
+                Research Plan Challenger
+              </h3>
+              <p class="text-sm text-accent font-medium">Before the fieldwork begins</p>
+            </div>
+          </div>
+
+          <div class="ml-8 sm:ml-10 space-y-4">
+            <div>
+              <p class="text-xs font-medium uppercase tracking-widest text-stone mb-2">The UX Problem</p>
+              <p class="text-stone leading-relaxed">
+                Research plans often carry hidden assumptions—about user behavior, scope, and what
+                "success" looks like—that only surface after weeks of fieldwork. By then, sunk-cost
+                bias makes them nearly impossible to revise.
+              </p>
+            </div>
+
+            <div>
+              <p class="text-xs font-medium uppercase tracking-widest text-stone mb-2">How It Helps</p>
+              <p class="text-stone leading-relaxed">
+                An AI co-researcher adversarially reviews your plan: surfacing untested hypotheses,
+                flagging leading questions, and proposing counter-scenarios you haven't considered.
+                It doesn't write your plan—it stress-tests it.
+              </p>
+            </div>
+
+            <a
+              href="https://github.com/jfdarcy/ai-ux-research-toolkit/tree/main/tools/research-plan-challenger"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-ink transition-colors mt-2"
+            >
+              View on GitHub
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+
+        <hr class="border-stone/10" />
+
+        <!-- Tool 2 -->
+        <article class="group">
+          <div class="flex items-start gap-4 mb-4">
+            <span class="text-xs font-medium text-stone mt-1 tabular-nums">02</span>
+            <div class="flex-1">
+              <h3 class="font-serif text-2xl font-semibold text-ink mb-1 group-hover:text-accent transition-colors">
+                Transcript Dual-Lens Analyzer
+              </h3>
+              <p class="text-sm text-accent font-medium">During synthesis</p>
+            </div>
+          </div>
+
+          <div class="ml-8 sm:ml-10 space-y-4">
+            <div>
+              <p class="text-xs font-medium uppercase tracking-widest text-stone mb-2">The UX Problem</p>
+              <p class="text-stone leading-relaxed">
+                When a single researcher codes interview transcripts, confirmation bias is inevitable.
+                We notice what we expect to find and quietly deprioritize contradictions—the very
+                signals that often contain the most valuable insights.
+              </p>
+            </div>
+
+            <div>
+              <p class="text-xs font-medium uppercase tracking-widest text-stone mb-2">How It Helps</p>
+              <p class="text-stone leading-relaxed">
+                The tool runs an independent thematic analysis alongside your own, then highlights
+                divergences: themes you missed, quotes you underweighted, and patterns that only
+                appear when two perspectives collide.
+              </p>
+            </div>
+
+            <a
+              href="https://github.com/jfdarcy/ai-ux-research-toolkit/tree/main/tools/transcript-dual-lens"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-ink transition-colors mt-2"
+            >
+              View on GitHub
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+
+        <hr class="border-stone/10" />
+
+        <!-- Tool 3 -->
+        <article class="group">
+          <div class="flex items-start gap-4 mb-4">
+            <span class="text-xs font-medium text-stone mt-1 tabular-nums">03</span>
+            <div class="flex-1">
+              <h3 class="font-serif text-2xl font-semibold text-ink mb-1 group-hover:text-accent transition-colors">
+                Insight Rigidity Checker
+              </h3>
+              <p class="text-sm text-accent font-medium">Before sharing findings</p>
+            </div>
+          </div>
+
+          <div class="ml-8 sm:ml-10 space-y-4">
+            <div>
+              <p class="text-xs font-medium uppercase tracking-widest text-stone mb-2">The UX Problem</p>
+              <p class="text-stone leading-relaxed">
+                Research teams frequently "fall in love" with insights during synthesis—polishing
+                narratives that feel compelling but aren't fully supported by the evidence.
+                Stakeholders then act on fragile conclusions with high confidence.
+              </p>
+            </div>
+
+            <div>
+              <p class="text-xs font-medium uppercase tracking-widest text-stone mb-2">How It Helps</p>
+              <p class="text-stone leading-relaxed">
+                For each insight you draft, the co-researcher maps it back to supporting quotes,
+                flags overgeneralizations, assigns a confidence score, and asks the question you
+                might be avoiding: <em>what would disprove this?</em>
+              </p>
+            </div>
+
+            <a
+              href="https://github.com/jfdarcy/ai-ux-research-toolkit/tree/main/tools/insight-rigidity-checker"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-ink transition-colors mt-2"
+            >
+              View on GitHub
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-stone/10 bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <p class="text-sm text-stone">
+        Built with care for researchers who value rigor over speed.
+      </p>
+      <a
+        href="https://github.com/jfdarcy/ai-ux-research-toolkit"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm text-stone hover:text-ink transition-colors"
+      >
+        github.com/jfdarcy/ai-ux-research-toolkit
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>
