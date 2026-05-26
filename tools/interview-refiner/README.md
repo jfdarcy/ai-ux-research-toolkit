@@ -24,6 +24,30 @@ It also generates an **independent parallel guide** built only from your objecti
 
 ---
 
+## Try it
+
+| Option | Best for | Link |
+|--------|----------|------|
+| **Hosted demo** | Quick try in the browser — paste your own API key | [interview-refiner-jfdarcy.streamlit.app](https://interview-refiner-jfdarcy.streamlit.app) |
+| **Run locally** | Confidential client work; data skips the demo server | [Setup instructions below](#step-1-get-the-code) |
+
+---
+
+## Privacy & confidentiality
+
+**This tool is not air-gapped.** When you run an analysis, your objectives and draft interview guide are sent to the LLM provider you choose (Anthropic or Google). Review their data policies before pasting confidential research.
+
+| | Hosted demo | Local run |
+|---|-------------|-----------|
+| **Streamlit UI** | Streamlit Community Cloud | Your machine (`localhost`) |
+| **LLM processing** | Anthropic or Google (cloud) | Anthropic or Google (cloud) |
+| **Who pays API costs** | You (your key in the sidebar) | You (your key) |
+| **Best for** | Convenience, portfolio demos | Sensitive or client work |
+
+> Run locally so your draft never passes through a public demo server. API calls still go to your chosen provider — **local UI ≠ local AI**.
+
+---
+
 ## Before You Start
 
 You will need:
@@ -186,9 +210,24 @@ To stop the app, press **Ctrl+C** in the terminal.
 1. **Research Objectives** (left box) — paste your goals, key questions, and what success looks like
 2. **Draft Interview Guide** (right box) — paste your planned questions and probes
 3. **AI Provider** (sidebar) — choose Claude (recommended) or Gemini (free tier)
-4. Click **Run Gap Analysis**
-5. Wait for the report (usually 30–60 seconds)
-6. Use **Download Report (.md)** to save the results
+4. **API key** (sidebar) — paste your key, *or* set it via environment variable / `secrets.toml` before launching (local only)
+5. Click **Run Gap Analysis**
+6. Wait for the report (usually 30–60 seconds)
+7. Use **Download Report (.md)** to save the results
+
+---
+
+## Deploy to Streamlit Community Cloud (repo maintainers)
+
+To publish the hosted demo (BYOK — **do not** add API keys to Cloud secrets):
+
+1. Sign in at [share.streamlit.io](https://share.streamlit.io/) with GitHub
+2. Click **Create app** → select `jfdarcy/ai-ux-research-toolkit`
+3. Set **Main file path** to `tools/interview-refiner/interview_refiner.py`
+4. Leave **Secrets** empty — users paste their own keys in the sidebar
+5. Deploy; update the demo URL in `index.html` and this README if your app URL differs
+
+Expected URL format: `https://interview-refiner-jfdarcy.streamlit.app` (you choose the subdomain at deploy time).
 
 ---
 
@@ -211,8 +250,9 @@ To stop the app, press **Ctrl+C** in the terminal.
 ```
 tools/interview-refiner/
 ├── interview_refiner.py   # The app (single file)
-├── requirements.txt     # Python packages needed
-└── README.md            # This file
+├── requirements.txt       # Python packages needed
+├── .streamlit/config.toml # Streamlit Cloud theme/config
+└── README.md
 ```
 
 ---

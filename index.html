@@ -157,19 +157,35 @@
               <p class="text-stone leading-relaxed">
                 A Streamlit co-researcher takes your objectives and draft guide, generates an
                 independent parallel guide, then reports on blind spots, framing bias, and missed
-                angles. Supports Claude (recommended) or Gemini (free tier).
+                angles. Supports Claude (recommended) or Gemini (free tier). You provide your own
+                API key — usage is billed to you, not the host.
               </p>
             </div>
 
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-2">
+            <a
+              href="https://interview-refiner-jfdarcy.streamlit.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-ink transition-colors"
+            >
+              Try live demo
+              <span aria-hidden="true">→</span>
+            </a>
             <a
               href="https://github.com/jfdarcy/ai-ux-research-toolkit/tree/main/tools/interview-refiner"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-ink transition-colors mt-2"
+              class="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-ink transition-colors"
             >
               View on GitHub
               <span aria-hidden="true">→</span>
             </a>
+            </div>
+            <p class="text-xs text-stone mt-3 leading-relaxed">
+              Not air-gapped: analysis sends your draft to Anthropic or Google. For confidential work,
+              run locally. Hosted demo also passes data through Streamlit's servers.
+            </p>
           </div>
         </article>
 

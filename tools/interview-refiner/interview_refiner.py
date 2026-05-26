@@ -9,6 +9,7 @@ import sys
 from typing import Literal
 
 import streamlit as st
+from streamlit.errors import StreamlitSecretNotFoundError
 
 ProviderId = Literal["claude", "gemini"]
 
@@ -87,6 +88,50 @@ def missing_packages() -> list[str]:
     return missing
 
 
+def is_streamlit_cloud() -> bool:
+    return os.environ.get("STREAMLIT_RUNTIME_ENV") == "cloud"
+
+
+def resolve_api_key(provider: ProviderId, sidebar_key: str | None) -> str | None:
+    """Sidebar key first; on Cloud, BYOK only (no host-provided secrets)."""
+    if sidebar_key:
+        return sidebar_key
+    if is_streamlit_cloud():
+        return None
+    return get_api_key(provider)
+
+
+def render_privacy_notice() -> None:
+    hosted = is_streamlit_cloud()
+    with st.expander("Privacy & confidentiality", expanded=hosted):
+        st.markdown(
+            "**This app is not air-gapped.** When you run a gap analysis, your objectives "
+            "and draft interview guide are sent to the LLM provider you select (Anthropic or Google). "
+            "Review their data policies before pasting client or confidential research."
+        )
+        if hosted:
+            st.markdown(
+                "You are using the **hosted demo** on Streamlit Community Cloud. Your inputs "
+                "also pass through Streamlit's servers on the way to the provider. "
+                "**Paste your own API key** in the sidebar — you pay for your usage; the host does not."
+            )
+            st.markdown(
+                "For sensitive work, "
+                "[run locally from GitHub]"
+                "(https://github.com/jfdarcy/ai-ux-research-toolkit/tree/main/tools/interview-refiner) "
+                "so data does not pass through this demo server."
+            )
+        else:
+            st.markdown(
+                "**Local run:** The Streamlit UI runs on your machine (`localhost`). "
+                "Data still leaves your machine when sent to Claude or Gemini — local UI ≠ local AI."
+            )
+        st.caption(
+            "Gemini free tier may use inputs to improve Google products. "
+            "Claude usage is subject to Anthropic's terms."
+        )
+
+
 def render_setup_help(missing: list[str]) -> None:
     st.error(
         f"Missing Python packages in this environment: **{', '.join(missing)}**"
@@ -117,9 +162,44 @@ def build_user_prompt(objectives: str, draft_guide: str) -> str:
 
 def get_api_key(provider: ProviderId) -> str | None:
     key_name = PROVIDERS[provider]["key_name"]
-    if key_name in st.secrets:
+
+    env_key = os.environ.get(key_name)
+    if env_key:
+        return env_key
+
+    try:
         return st.secrets[key_name]
-    return os.environ.get(key_name)
+    except (KeyError, StreamlitSecretNotFoundError):
+        return None
+
+
+def render_missing_api_key_help(key_name: str, key_url: str, label: str) -> None:
+    st.error(f"No API key found for **{label}**.")
+    st.markdown(f"Get a free key at [{key_url}]({key_url}), then use **one** of these options:")
+
+    st.markdown("**Option 1 — Paste in the sidebar (easiest)**")
+    st.caption("Enter your key in the **API key** field in the left sidebar, then click Run Gap Analysis again.")
+
+    st.markdown("**Option 2 — Environment variable**")
+    if sys.platform == "win32":
+        st.code(
+            f'$env:{key_name} = "your-key-here"\n'
+            "python -m streamlit run interview_refiner.py",
+            language="powershell",
+        )
+        st.caption("Set the variable in the same terminal session, then start (or restart) the app.")
+    else:
+        st.code(
+            f'export {key_name}="your-key-here"\n'
+            "python -m streamlit run interview_refiner.py",
+            language="bash",
+        )
+
+    st.markdown("**Option 3 — Streamlit secrets file**")
+    st.code(
+        f'# tools/interview-refiner/.streamlit/secrets.toml\n{key_name} = "your-key-here"',
+        language="toml",
+    )
 
 
 def run_gap_analysis_claude(api_key: str, objectives: str, draft_guide: str) -> str:
@@ -159,7 +239,7 @@ def run_gap_analysis(provider: ProviderId, api_key: str, objectives: str, draft_
     return run_gap_analysis_gemini(api_key, objectives, draft_guide)
 
 
-def render_provider_sidebar() -> ProviderId:
+def render_provider_sidebar() -> tuple[ProviderId, str | None]:
     st.sidebar.header("AI Provider")
 
     provider: ProviderId = st.sidebar.radio(
@@ -190,7 +270,20 @@ def render_provider_sidebar() -> ProviderId:
         f"[Get a key →]({config['key_url']})"
     )
 
-    return provider
+    sidebar_key = st.sidebar.text_input(
+        "API key",
+        type="password",
+        placeholder="Required — paste your key here" if is_streamlit_cloud() else "Paste your key here",
+        help=(
+            "Required on the hosted demo. On local run, optional if set via environment variable."
+        ),
+    )
+
+    st.sidebar.caption(
+        "You provide your own key — API usage is billed to you, not the app host."
+    )
+
+    return provider, sidebar_key.strip() or None
 
 
 def main() -> None:
@@ -206,13 +299,22 @@ def main() -> None:
         render_setup_help(missing)
         return
 
-    provider = render_provider_sidebar()
+    provider, sidebar_key = render_provider_sidebar()
 
     st.title("The UX Research Interview Refiner")
     st.caption(
         "Augmented Rigor — treat AI as a co-researcher that challenges your draft, "
         "not a shortcut that rubber-stamps it."
     )
+
+    if is_streamlit_cloud():
+        st.info(
+            "**Hosted demo** — paste your own API key in the sidebar. "
+            "For confidential client work, run locally from GitHub instead.",
+            icon="ℹ️",
+        )
+
+    render_privacy_notice()
 
     col_left, col_right = st.columns(2)
 
@@ -252,14 +354,16 @@ def main() -> None:
             st.error("Please enter your Draft Interview Guide before running the analysis.")
             return
 
-        key_name = PROVIDERS[provider]["key_name"]
-        api_key = get_api_key(provider)
+        config = PROVIDERS[provider]
+        api_key = resolve_api_key(provider, sidebar_key)
         if not api_key:
-            st.error(
-                f"No API key found for {PROVIDERS[provider]['label']}. "
-                f"Set `{key_name}` as an environment variable or in `.streamlit/secrets.toml`."
+            render_missing_api_key_help(
+                config["key_name"],
+                config["key_url"],
+                config["label"],
             )
-            st.code(f'export {key_name}="your-key-here"', language="bash")
+            if is_streamlit_cloud():
+                st.info("On the hosted demo, paste your key in the **API key** field in the sidebar.")
             return
 
         with st.spinner(f"Running comparative gap analysis with {PROVIDERS[provider]['label']}…"):
