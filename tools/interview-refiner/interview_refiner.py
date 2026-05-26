@@ -3,13 +3,12 @@ The UX Research Interview Refiner
 A co-researcher tool that stress-tests draft interview guides against research objectives.
 """
 
+import importlib.util
 import os
+import sys
 from typing import Literal
 
 import streamlit as st
-from anthropic import Anthropic
-from google import genai
-from google.genai import types
 
 ProviderId = Literal["claude", "gemini"]
 
@@ -79,6 +78,36 @@ Perform your independent parallel guide generation and gap analysis now. Output 
 structured Markdown report as specified."""
 
 
+def missing_packages() -> list[str]:
+    missing: list[str] = []
+    if importlib.util.find_spec("anthropic") is None:
+        missing.append("anthropic")
+    if importlib.util.find_spec("google.genai") is None:
+        missing.append("google-genai")
+    return missing
+
+
+def render_setup_help(missing: list[str]) -> None:
+    st.error(
+        f"Missing Python packages in this environment: **{', '.join(missing)}**"
+    )
+    st.warning(
+        f"Streamlit is running with `{sys.executable}`. "
+        "Install dependencies into **this same Python**, not a different one."
+    )
+    st.markdown("**Fix (PowerShell):**")
+    st.code(
+        "python -m pip install -r requirements.txt\n"
+        "python -m streamlit run interview_refiner.py",
+        language="powershell",
+    )
+    st.caption(
+        "Tip: If you use Anaconda and also have Python installed elsewhere, "
+        "`pip install` and `streamlit run` may point at different environments. "
+        "Using `python -m pip` and `python -m streamlit` keeps them aligned."
+    )
+
+
 def build_user_prompt(objectives: str, draft_guide: str) -> str:
     return USER_PROMPT_TEMPLATE.format(
         objectives=objectives.strip(),
@@ -94,6 +123,8 @@ def get_api_key(provider: ProviderId) -> str | None:
 
 
 def run_gap_analysis_claude(api_key: str, objectives: str, draft_guide: str) -> str:
+    from anthropic import Anthropic
+
     client = Anthropic(api_key=api_key)
     message = client.messages.create(
         model=PROVIDERS["claude"]["model"],
@@ -105,6 +136,9 @@ def run_gap_analysis_claude(api_key: str, objectives: str, draft_guide: str) -> 
 
 
 def run_gap_analysis_gemini(api_key: str, objectives: str, draft_guide: str) -> str:
+    from google import genai
+    from google.genai import types
+
     client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
         model=PROVIDERS["gemini"]["model"],
@@ -165,6 +199,12 @@ def main() -> None:
         page_icon="🔍",
         layout="wide",
     )
+
+    missing = missing_packages()
+    if missing:
+        st.title("The UX Research Interview Refiner")
+        render_setup_help(missing)
+        return
 
     provider = render_provider_sidebar()
 

@@ -81,7 +81,7 @@ A virtual environment keeps this tool's dependencies isolated from other Python 
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 If you get an execution policy error when activating, run this once (then try activating again):
@@ -95,7 +95,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```cmd
 python -m venv .venv
 .venv\Scripts\activate.bat
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 ### macOS / Linux
@@ -103,10 +103,12 @@ pip install -r requirements.txt
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 You should see `(.venv)` at the start of your terminal prompt — that means the environment is active.
+
+> **Windows + Anaconda users:** If you have Anaconda and another Python installed, plain `pip install` and `streamlit run` may use different environments. Always use `python -m pip` and `python -m streamlit` after activating `.venv` so install and launch use the same Python.
 
 ---
 
@@ -170,7 +172,7 @@ This file is already listed in the repo's `.gitignore` — it won't be committed
 Make sure you're still inside `tools/interview-refiner` with your virtual environment active (`(.venv)` visible in the prompt).
 
 ```bash
-streamlit run interview_refiner.py
+python -m streamlit run interview_refiner.py
 ```
 
 Your browser should open automatically to **http://localhost:8501**. If it doesn't, copy that URL into your browser manually.
@@ -195,7 +197,8 @@ To stop the app, press **Ctrl+C** in the terminal.
 | Problem | What to try |
 |---------|-------------|
 | `'python' is not recognized` | Reinstall Python with **"Add to PATH"** checked, or use `py` on Windows: `py -m venv .venv` |
-| `'streamlit' is not recognized` | Make sure the virtual environment is activated, then run `pip install -r requirements.txt` again |
+| `ModuleNotFoundError: No module named 'anthropic'` | Activate `.venv`, run `python -m pip install -r requirements.txt`, then launch with `python -m streamlit run interview_refiner.py` |
+| `'streamlit' is not recognized` | Make sure the virtual environment is activated, then run `python -m pip install -r requirements.txt` again |
 | `No API key found` | Set the key for your selected provider (`ANTHROPIC_API_KEY` or `GEMINI_API_KEY`), or add it to `.streamlit/secrets.toml` |
 | `Analysis failed: ... authentication` | Your API key may be wrong or expired — create a new one at the provider's console |
 | Port 8501 already in use | Another Streamlit app may be running — close it, or run: `streamlit run interview_refiner.py --server.port 8502` |
