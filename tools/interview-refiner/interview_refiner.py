@@ -4,11 +4,29 @@ A co-researcher tool that stress-tests draft interview guides against research o
 """
 
 import os
+from typing import Literal
 
 import streamlit as st
 from anthropic import Anthropic
+from google import genai
+from google.genai import types
 
-MODEL = "claude-sonnet-4-20250514"
+ProviderId = Literal["claude", "gemini"]
+
+PROVIDERS: dict[ProviderId, dict[str, str]] = {
+    "claude": {
+        "label": "Claude (recommended)",
+        "model": "claude-sonnet-4-20250514",
+        "key_name": "ANTHROPIC_API_KEY",
+        "key_url": "https://console.anthropic.com/",
+    },
+    "gemini": {
+        "label": "Gemini (free tier)",
+        "model": "gemini-2.5-flash",
+        "key_name": "GEMINI_API_KEY",
+        "key_url": "https://aistudio.google.com/apikey",
+    },
+}
 
 SYSTEM_PROMPT = """You are a rigorous UX Research Methodologist acting as a tireless co-researcher.
 
@@ -61,28 +79,84 @@ Perform your independent parallel guide generation and gap analysis now. Output 
 structured Markdown report as specified."""
 
 
-def get_api_key() -> str | None:
-    if "ANTHROPIC_API_KEY" in st.secrets:
-        return st.secrets["ANTHROPIC_API_KEY"]
-    return os.environ.get("ANTHROPIC_API_KEY")
+def build_user_prompt(objectives: str, draft_guide: str) -> str:
+    return USER_PROMPT_TEMPLATE.format(
+        objectives=objectives.strip(),
+        draft_guide=draft_guide.strip(),
+    )
 
 
-def run_gap_analysis(client: Anthropic, objectives: str, draft_guide: str) -> str:
+def get_api_key(provider: ProviderId) -> str | None:
+    key_name = PROVIDERS[provider]["key_name"]
+    if key_name in st.secrets:
+        return st.secrets[key_name]
+    return os.environ.get(key_name)
+
+
+def run_gap_analysis_claude(api_key: str, objectives: str, draft_guide: str) -> str:
+    client = Anthropic(api_key=api_key)
     message = client.messages.create(
-        model=MODEL,
+        model=PROVIDERS["claude"]["model"],
         max_tokens=8192,
         system=SYSTEM_PROMPT,
-        messages=[
-            {
-                "role": "user",
-                "content": USER_PROMPT_TEMPLATE.format(
-                    objectives=objectives.strip(),
-                    draft_guide=draft_guide.strip(),
-                ),
-            }
-        ],
+        messages=[{"role": "user", "content": build_user_prompt(objectives, draft_guide)}],
     )
     return message.content[0].text
+
+
+def run_gap_analysis_gemini(api_key: str, objectives: str, draft_guide: str) -> str:
+    client = genai.Client(api_key=api_key)
+    response = client.models.generate_content(
+        model=PROVIDERS["gemini"]["model"],
+        contents=build_user_prompt(objectives, draft_guide),
+        config=types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT,
+            max_output_tokens=8192,
+        ),
+    )
+    if not response.text:
+        raise RuntimeError("Gemini returned an empty response. Try again or switch to Claude.")
+    return response.text
+
+
+def run_gap_analysis(provider: ProviderId, api_key: str, objectives: str, draft_guide: str) -> str:
+    if provider == "claude":
+        return run_gap_analysis_claude(api_key, objectives, draft_guide)
+    return run_gap_analysis_gemini(api_key, objectives, draft_guide)
+
+
+def render_provider_sidebar() -> ProviderId:
+    st.sidebar.header("AI Provider")
+
+    provider: ProviderId = st.sidebar.radio(
+        "Choose a model",
+        options=["claude", "gemini"],
+        format_func=lambda pid: PROVIDERS[pid]["label"],
+        index=0,
+    )
+
+    config = PROVIDERS[provider]
+    st.sidebar.caption(f"Model: `{config['model']}`")
+
+    if provider == "gemini":
+        st.sidebar.warning(
+            "Gemini free tier may use your inputs to improve Google products. "
+            "Do not paste confidential or client research material.",
+            icon="⚠️",
+        )
+    else:
+        st.sidebar.info(
+            "Claude is recommended for the most rigorous gap analysis.",
+            icon="ℹ️",
+        )
+
+    key_name = config["key_name"]
+    st.sidebar.markdown(
+        f"Requires `{key_name}`. "
+        f"[Get a key →]({config['key_url']})"
+    )
+
+    return provider
 
 
 def main() -> None:
@@ -91,6 +165,8 @@ def main() -> None:
         page_icon="🔍",
         layout="wide",
     )
+
+    provider = render_provider_sidebar()
 
     st.title("The UX Research Interview Refiner")
     st.caption(
@@ -136,25 +212,26 @@ def main() -> None:
             st.error("Please enter your Draft Interview Guide before running the analysis.")
             return
 
-        api_key = get_api_key()
+        key_name = PROVIDERS[provider]["key_name"]
+        api_key = get_api_key(provider)
         if not api_key:
             st.error(
-                "No API key found. Set the `ANTHROPIC_API_KEY` environment variable, "
-                "or add it to `.streamlit/secrets.toml`."
+                f"No API key found for {PROVIDERS[provider]['label']}. "
+                f"Set `{key_name}` as an environment variable or in `.streamlit/secrets.toml`."
             )
-            st.code("export ANTHROPIC_API_KEY=your-key-here", language="bash")
+            st.code(f'export {key_name}="your-key-here"', language="bash")
             return
 
-        with st.spinner("Running comparative gap analysis…"):
+        with st.spinner(f"Running comparative gap analysis with {PROVIDERS[provider]['label']}…"):
             try:
-                client = Anthropic(api_key=api_key)
-                report = run_gap_analysis(client, objectives, draft_guide)
+                report = run_gap_analysis(provider, api_key, objectives, draft_guide)
             except Exception as exc:
                 st.error(f"Analysis failed: {exc}")
                 return
 
         st.divider()
         st.subheader("Gap Analysis Report")
+        st.caption(f"Generated with {PROVIDERS[provider]['label']} ({PROVIDERS[provider]['model']})")
         st.markdown(report)
 
         st.download_button(

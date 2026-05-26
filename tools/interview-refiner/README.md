@@ -3,7 +3,7 @@
 **Stage:** Before fieldwork  
 **Philosophy:** Augmented Rigor — challenge your draft before participants do.
 
-A Streamlit web app that stress-tests your interview guide against your research objectives using the Claude API.
+A Streamlit web app that stress-tests your interview guide against your research objectives. Supports **Claude** (recommended) or **Gemini** (free tier).
 
 ---
 
@@ -32,8 +32,8 @@ You will need:
 |-------------|---------|
 | **Python 3.10 or newer** | [Download Python](https://www.python.org/downloads/) — on Windows, check **"Add Python to PATH"** during install |
 | **Git** (optional) | To clone the repo — [Download Git](https://git-scm.com/downloads) |
-| **Anthropic API key** | Free to create at [console.anthropic.com](https://console.anthropic.com/) |
-| **Internet connection** | The app calls Claude's API when you run an analysis |
+| **API key (pick one provider)** | Claude: [console.anthropic.com](https://console.anthropic.com/) · Gemini: [aistudio.google.com/apikey](https://aistudio.google.com/apikey) (free tier) |
+| **Internet connection** | The app calls your chosen provider when you run an analysis |
 
 To check Python is installed, open a terminal and run:
 
@@ -112,33 +112,43 @@ You should see `(.venv)` at the start of your terminal prompt — that means the
 
 ## Step 3: Add Your API Key
 
-The app needs an Anthropic API key to call Claude. **Never share or commit this key.**
+The app supports two providers. Choose one — you only need the key for the provider you plan to use. **Never share or commit your key.**
 
-### Get a key
+| Provider | Best for | Key variable | Get a key |
+|----------|----------|--------------|-----------|
+| **Claude** (recommended) | Most rigorous gap analysis | `ANTHROPIC_API_KEY` | [console.anthropic.com](https://console.anthropic.com/) |
+| **Gemini** (free tier) | Trying the tool at no cost | `GEMINI_API_KEY` | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
 
-1. Sign up or log in at [console.anthropic.com](https://console.anthropic.com/)
-2. Go to **API Keys** and create a new key
-3. Copy it — you won't be able to see it again
+> **Privacy note:** Gemini's free tier may use your inputs to improve Google products. Do not paste confidential or client research on the free tier. Use Claude for sensitive work.
 
 ### Set the key (pick one method)
 
 **Method A — Environment variable (recommended)**
 
-Set it in the same terminal session where you'll launch the app:
+Set the variable for your chosen provider in the same terminal session where you'll launch the app:
 
 ```powershell
-# Windows (PowerShell)
+# Windows (PowerShell) — Claude
 $env:ANTHROPIC_API_KEY = "sk-ant-your-key-here"
+
+# Windows (PowerShell) — Gemini
+$env:GEMINI_API_KEY = "your-key-here"
 ```
 
 ```cmd
-# Windows (Command Prompt)
+# Windows (Command Prompt) — Claude
 set ANTHROPIC_API_KEY=sk-ant-your-key-here
+
+# Windows (Command Prompt) — Gemini
+set GEMINI_API_KEY=your-key-here
 ```
 
 ```bash
-# macOS / Linux
+# macOS / Linux — Claude
 export ANTHROPIC_API_KEY="sk-ant-your-key-here"
+
+# macOS / Linux — Gemini
+export GEMINI_API_KEY="your-key-here"
 ```
 
 **Method B — Streamlit secrets file**
@@ -146,7 +156,9 @@ export ANTHROPIC_API_KEY="sk-ant-your-key-here"
 Create a file at `tools/interview-refiner/.streamlit/secrets.toml`:
 
 ```toml
+# Include one or both — the app uses whichever matches your sidebar selection
 ANTHROPIC_API_KEY = "sk-ant-your-key-here"
+GEMINI_API_KEY = "your-key-here"
 ```
 
 This file is already listed in the repo's `.gitignore` — it won't be committed if you push changes.
@@ -171,9 +183,10 @@ To stop the app, press **Ctrl+C** in the terminal.
 
 1. **Research Objectives** (left box) — paste your goals, key questions, and what success looks like
 2. **Draft Interview Guide** (right box) — paste your planned questions and probes
-3. Click **Run Gap Analysis**
-4. Wait for the report (usually 30–60 seconds)
-5. Use **Download Report (.md)** to save the results
+3. **AI Provider** (sidebar) — choose Claude (recommended) or Gemini (free tier)
+4. Click **Run Gap Analysis**
+5. Wait for the report (usually 30–60 seconds)
+6. Use **Download Report (.md)** to save the results
 
 ---
 
@@ -183,8 +196,8 @@ To stop the app, press **Ctrl+C** in the terminal.
 |---------|-------------|
 | `'python' is not recognized` | Reinstall Python with **"Add to PATH"** checked, or use `py` on Windows: `py -m venv .venv` |
 | `'streamlit' is not recognized` | Make sure the virtual environment is activated, then run `pip install -r requirements.txt` again |
-| `No API key found` | Set `ANTHROPIC_API_KEY` in the same terminal before launching, or create `.streamlit/secrets.toml` |
-| `Analysis failed: ... authentication` | Your API key may be wrong or expired — create a new one at console.anthropic.com |
+| `No API key found` | Set the key for your selected provider (`ANTHROPIC_API_KEY` or `GEMINI_API_KEY`), or add it to `.streamlit/secrets.toml` |
+| `Analysis failed: ... authentication` | Your API key may be wrong or expired — create a new one at the provider's console |
 | Port 8501 already in use | Another Streamlit app may be running — close it, or run: `streamlit run interview_refiner.py --server.port 8502` |
 | Browser doesn't open | Go to http://localhost:8501 manually |
 
