@@ -5,7 +5,9 @@ A co-researcher tool that stress-tests draft interview guides against research o
 
 import importlib.util
 import os
+import subprocess
 import sys
+from pathlib import Path
 from typing import Literal
 
 import streamlit as st
@@ -90,6 +92,31 @@ def missing_packages() -> list[str]:
     return missing
 
 
+def project_venv_python() -> Path:
+    return Path(__file__).resolve().parent / ".venv" / "Scripts" / "python.exe"
+
+
+def using_project_venv() -> bool:
+    venv_python = project_venv_python()
+    return venv_python.exists() and Path(sys.executable).resolve() == venv_python.resolve()
+
+
+def venv_has_required_packages(venv_python: Path) -> bool:
+    probe = (
+        "import importlib.util, sys; "
+        "sys.exit(0 if importlib.util.find_spec('anthropic') "
+        "and importlib.util.find_spec('google.genai') else 1)"
+    )
+    result = subprocess.run(
+        [str(venv_python), "-c", probe],
+        capture_output=True,
+        text=True,
+        timeout=15,
+        check=False,
+    )
+    return result.returncode == 0
+
+
 def is_streamlit_cloud() -> bool:
     return os.environ.get("STREAMLIT_RUNTIME_ENV") == "cloud"
 
@@ -136,23 +163,61 @@ def render_privacy_notice() -> None:
 
 
 def render_setup_help(missing: list[str]) -> None:
+    tool_dir = Path(__file__).resolve().parent
+    venv_python = project_venv_python()
+    venv_ready = venv_python.exists() and venv_has_required_packages(venv_python)
+    use_venv_fix = venv_ready and not using_project_venv()
+
     st.error(
         f"Missing Python packages in this environment: **{', '.join(missing)}**"
     )
+
+    if use_venv_fix:
+        st.warning(
+            f"Dependencies are installed in this project's `.venv`, but Streamlit is running with "
+            f"`{sys.executable}` instead. On Windows, the global `streamlit` command often points "
+            f"at Anaconda while `pip install` went into `.venv`."
+        )
+        st.markdown("**Recommended fix (PowerShell):**")
+        st.code(
+            f".\\.venv\\Scripts\\python.exe -m streamlit run interview_refiner.py",
+            language="powershell",
+        )
+        st.markdown("**Or activate the venv first:**")
+        st.code(
+            ".\\.venv\\Scripts\\Activate.ps1\n"
+            "python -m streamlit run interview_refiner.py",
+            language="powershell",
+        )
+        st.caption(
+            f"Run these from `{tool_dir}`. You can also use `.\\run.ps1` to start the app with the project venv."
+        )
+        return
+
     st.warning(
         f"Streamlit is running with `{sys.executable}`. "
         "Install dependencies into **this same Python**, not a different one."
     )
-    st.markdown("**Fix (PowerShell):**")
-    st.code(
-        "python -m pip install -r requirements.txt\n"
-        "python -m streamlit run interview_refiner.py",
-        language="powershell",
-    )
+    if venv_python.exists():
+        st.markdown("**Fix with the project venv (PowerShell):**")
+        st.code(
+            ".\\.venv\\Scripts\\python.exe -m pip install -r requirements.txt\n"
+            ".\\.venv\\Scripts\\python.exe -m streamlit run interview_refiner.py",
+            language="powershell",
+        )
+    else:
+        st.markdown("**Fix (PowerShell):**")
+        st.code(
+            "python -m venv .venv\n"
+            ".\\.venv\\Scripts\\Activate.ps1\n"
+            "python -m pip install -r requirements.txt\n"
+            "python -m streamlit run interview_refiner.py",
+            language="powershell",
+        )
     st.caption(
         "Tip: If you use Anaconda and also have Python installed elsewhere, "
         "`pip install` and `streamlit run` may point at different environments. "
-        "Using `python -m pip` and `python -m streamlit` keeps them aligned."
+        "Using `.venv\\Scripts\\python.exe -m streamlit` keeps them aligned."
     )
 
 
