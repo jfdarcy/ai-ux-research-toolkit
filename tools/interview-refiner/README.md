@@ -5,7 +5,7 @@
 **Stage:** Before fieldwork  
 **Philosophy:** Augmented Rigor — challenge your draft before participants do.
 
-A Streamlit web app that stress-tests your interview guide against your research objectives. Supports **Claude** (recommended) or **Gemini** (free tier).
+A Streamlit web app that stress-tests your interview guide against your research objectives. Supports **Claude** (recommended) or **Gemini** — you provide your own API key; cost and terms depend on your provider account.
 
 ---
 
@@ -58,7 +58,7 @@ You will need:
 |-------------|---------|
 | **Python 3.10 or newer** | [Download Python](https://www.python.org/downloads/) — on Windows, check **"Add Python to PATH"** during install |
 | **Git** (optional) | To clone the repo — [Download Git](https://git-scm.com/downloads) |
-| **API key (pick one provider)** | Claude: [console.anthropic.com](https://console.anthropic.com/) · Gemini: [aistudio.google.com/apikey](https://aistudio.google.com/apikey) (free tier) |
+| **API key (pick one provider)** | Claude: [console.anthropic.com](https://console.anthropic.com/) · Gemini: [aistudio.google.com/apikey](https://aistudio.google.com/apikey) (free keys available) |
 | **Internet connection** | The app calls your chosen provider when you run an analysis |
 
 To check Python is installed, open a terminal and run:
@@ -145,9 +145,9 @@ The app supports two providers. Choose one — you only need the key for the pro
 | Provider | Best for | Key variable | Get a key |
 |----------|----------|--------------|-----------|
 | **Claude** (recommended) | Most rigorous gap analysis | `ANTHROPIC_API_KEY` | [console.anthropic.com](https://console.anthropic.com/) |
-| **Gemini** (free tier) | Trying the tool at no cost | `GEMINI_API_KEY` | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
+| **Gemini** | Lower-cost option; free keys available via AI Studio, paid keys also work | `GEMINI_API_KEY` | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
 
-> **Privacy note:** Gemini's free tier may use your inputs to improve Google products. Do not paste confidential or client research on the free tier. Use Claude for sensitive work.
+> **Privacy note:** Cost and data policies depend on your API key and provider account. Free-tier Gemini keys from AI Studio may use your inputs to improve Google products. Do not paste confidential research on a free-tier Gemini key. Review your provider's terms before use.
 
 ### Set the key (pick one method)
 
@@ -211,7 +211,7 @@ To stop the app, press **Ctrl+C** in the terminal.
 
 1. **Research Objectives** (left box) — paste your goals, key questions, and what success looks like
 2. **Draft Interview Guide** (right box) — paste your planned questions and probes
-3. **AI Provider** (sidebar) — choose Claude (recommended) or Gemini (free tier)
+3. **AI Provider** (sidebar) — choose Claude (recommended) or Gemini
 4. **API key** (sidebar) — paste your key, *or* set it via environment variable / `secrets.toml` before launching (local only)
 5. Click **Run Gap Analysis**
 6. Wait for the report (usually 30–60 seconds)
@@ -261,4 +261,6 @@ tools/interview-refiner/
 
 ## Questions or Issues
 
-Open an issue on the main repo: [github.com/jfdarcy/ai-ux-research-toolkit/issues](https://github.com/jfdarcy/ai-ux-research-toolkit/issues)
+Open an issue on the main repo: [Report a bug or suggest an improvement](https://github.com/jfdarcy/ai-ux-research-toolkit/issues/new/choose)
+
+This is a portfolio demo — issues are reviewed when I can; there is no support SLA. Please do not paste confidential research material in issues.

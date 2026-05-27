@@ -13,6 +13,8 @@ from streamlit.errors import StreamlitSecretNotFoundError
 
 ProviderId = Literal["claude", "gemini"]
 
+ISSUES_URL = "https://github.com/jfdarcy/ai-ux-research-toolkit/issues/new/choose"
+
 PROVIDERS: dict[ProviderId, dict[str, str]] = {
     "claude": {
         "label": "Claude (recommended)",
@@ -21,7 +23,7 @@ PROVIDERS: dict[ProviderId, dict[str, str]] = {
         "key_url": "https://console.anthropic.com/",
     },
     "gemini": {
-        "label": "Gemini (free tier)",
+        "label": "Gemini",
         "model": "gemini-2.5-flash",
         "key_name": "GEMINI_API_KEY",
         "key_url": "https://aistudio.google.com/apikey",
@@ -127,7 +129,8 @@ def render_privacy_notice() -> None:
                 "Data still leaves your machine when sent to Claude or Gemini — local UI ≠ local AI."
             )
         st.caption(
-            "Gemini free tier may use inputs to improve Google products. "
+            "Cost and data policies depend on your API key and provider account. "
+            "Free-tier Gemini keys from AI Studio may use inputs to improve Google products. "
             "Claude usage is subject to Anthropic's terms."
         )
 
@@ -254,9 +257,13 @@ def render_provider_sidebar() -> tuple[ProviderId, str | None]:
 
     if provider == "gemini":
         st.sidebar.warning(
-            "Gemini free tier may use your inputs to improve Google products. "
-            "Do not paste confidential or client research material.",
+            "Cost and privacy terms depend on your Google account and key type. "
+            "Free-tier keys from AI Studio may use your inputs to improve Google products — "
+            "do not paste confidential or client research if using a free-tier key.",
             icon="⚠️",
+        )
+        st.sidebar.caption(
+            "Free keys are available via AI Studio; paid Google API keys are also supported."
         )
     else:
         st.sidebar.info(
@@ -282,6 +289,12 @@ def render_provider_sidebar() -> tuple[ProviderId, str | None]:
     st.sidebar.caption(
         "You provide your own key — API usage is billed to you, not the app host."
     )
+
+    st.sidebar.divider()
+    st.sidebar.markdown(
+        f"[Report a bug or suggest an improvement]({ISSUES_URL})"
+    )
+    st.sidebar.caption("Portfolio demo — issues reviewed when I can, no SLA.")
 
     return provider, sidebar_key.strip() or None
 

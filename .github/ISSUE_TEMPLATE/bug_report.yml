@@ -1,0 +1,76 @@
+name: Bug report
+description: Something isn't working in a toolkit tool
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. This is a portfolio demo — I review issues when I can, with no SLA.
+
+        **Do not paste confidential or client research material.** Describe the problem in general terms only.
+
+  - type: dropdown
+    id: tool
+    attributes:
+      label: Which tool?
+      options:
+        - Interview Refiner (live)
+        - Portfolio site (GitHub Pages)
+        - Research Plan Challenger (concept)
+        - Transcript Dual-Lens Analyzer (concept)
+        - Insight Rigidity Checker (concept)
+        - Other / not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Where did this happen?
+      options:
+        - Hosted Streamlit demo
+        - Local run
+        - GitHub Pages portfolio site
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+      placeholder: e.g. Clicked Run Gap Analysis with a valid API key and got an empty error message.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps help a lot.
+      placeholder: |
+        1. Open the hosted demo
+        2. Select Gemini and paste API key
+        3. Click Run Gap Analysis
+    validations:
+      required: true
+
+  - type: input
+    id: provider
+    attributes:
+      label: AI provider (if applicable)
+      placeholder: Claude / Gemini / N/A
+
+  - type: input
+    id: browser_os
+    attributes:
+      label: Browser and OS (if applicable)
+      placeholder: e.g. Chrome on Windows 11
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Error messages, screenshots (redacted), or setup details — no research content.
