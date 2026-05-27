@@ -14,7 +14,7 @@ This repository is a living portfolio of that philosophy in practice—each tool
 |--------|------|------------|------|
 | **Live** | [The UX Research Interview Refiner](./tools/interview-refiner/) | Interview guides hide leading questions and coverage gaps until fieldwork | [Try demo →](https://interview-refiner-jfdarcy.streamlit.app) · [Code →](./tools/interview-refiner/) |
 | *In development* | [Research Plan Challenger](./tools/research-plan-challenger/) | Untested assumptions hide in research plans until it's too late | [Concept →](./tools/research-plan-challenger/) |
-| *In development* | [Transcript Dual-Lens Analyzer](./tools/transcript-dual-lens/) | Single-researcher synthesis is vulnerable to confirmation bias | [Concept →](./tools/transcript-dual-lens/) |
+| *In development* | [Thematic Analyzer](./tools/thematic-analyzer/) | Single-researcher thematic coding is vulnerable to confirmation bias | [Concept →](./tools/thematic-analyzer/) |
 | *In development* | [Insight Rigidity Checker](./tools/insight-rigidity-checker/) | Teams fall in love with insights before validating them against evidence | [Concept →](./tools/insight-rigidity-checker/) |
 
 ---
