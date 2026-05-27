@@ -1,5 +1,7 @@
 # Insight Rigidity Checker
 
+> **Status: In development** — not yet implemented. This folder documents the UX problem and a draft co-researcher prompt for a future tool.
+
 **Stage:** Before sharing findings  
 **Philosophy:** Augmented Rigor — love the question, not the answer.
 
@@ -7,7 +9,7 @@
 
 Research teams often polish insights into compelling narratives before fully validating them against evidence. Stakeholders then act on fragile conclusions with unwarranted confidence.
 
-## What This Tool Does
+## What This Tool Will Do
 
 For each insight you draft, the co-researcher:
 
@@ -35,3 +37,7 @@ For each insight provided:
 4. State what would disprove this insight
 5. Rewrite the insight to be more precise if overgeneralized
 ```
+
+---
+
+**Live in this toolkit:** [The UX Research Interview Refiner](../interview-refiner/) — gap analysis for interview guides.

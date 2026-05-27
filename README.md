@@ -4,18 +4,18 @@
 
 To enhance the depth and objectivity of my work, I treat Artificial Intelligence (AI) as a tireless **"co-researcher"** rather than a simple automation tool. My goal is not to work faster, but to leverage AI to challenge my own assumptions and ensure the highest quality of insights.
 
-This repository is a living portfolio of that philosophy in practice—each tool below addresses a specific moment in the research lifecycle where human judgment is most vulnerable to bias, blind spots, or premature certainty.
+This repository is a living portfolio of that philosophy in practice—each tool addresses a specific moment in the research lifecycle where human judgment is most vulnerable to bias, blind spots, or premature certainty. **One tool is live today;** the others are documented as in-development concepts with draft co-researcher prompts.
 
 ---
 
 ## Tools
 
-| Tool | UX Problem | Link |
-|------|------------|------|
-| [Research Plan Challenger](./tools/research-plan-challenger/) | Untested assumptions hide in research plans until it's too late | [View code →](./tools/research-plan-challenger/) |
-| [The UX Research Interview Refiner](./tools/interview-refiner/) | Interview guides hide leading questions and coverage gaps until fieldwork | [Try demo →](https://interview-refiner-jfdarcy.streamlit.app) · [Code →](./tools/interview-refiner/) |
-| [Transcript Dual-Lens Analyzer](./tools/transcript-dual-lens/) | Single-researcher synthesis is vulnerable to confirmation bias | [View code →](./tools/transcript-dual-lens/) |
-| [Insight Rigidity Checker](./tools/insight-rigidity-checker/) | Teams fall in love with insights before validating them against evidence | [View code →](./tools/insight-rigidity-checker/) |
+| Status | Tool | UX Problem | Link |
+|--------|------|------------|------|
+| **Live** | [The UX Research Interview Refiner](./tools/interview-refiner/) | Interview guides hide leading questions and coverage gaps until fieldwork | [Try demo →](https://interview-refiner-jfdarcy.streamlit.app) · [Code →](./tools/interview-refiner/) |
+| *In development* | [Research Plan Challenger](./tools/research-plan-challenger/) | Untested assumptions hide in research plans until it's too late | [Concept →](./tools/research-plan-challenger/) |
+| *In development* | [Transcript Dual-Lens Analyzer](./tools/transcript-dual-lens/) | Single-researcher synthesis is vulnerable to confirmation bias | [Concept →](./tools/transcript-dual-lens/) |
+| *In development* | [Insight Rigidity Checker](./tools/insight-rigidity-checker/) | Teams fall in love with insights before validating them against evidence | [Concept →](./tools/insight-rigidity-checker/) |
 
 ---
 

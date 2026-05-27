@@ -1,5 +1,7 @@
 # Research Plan Challenger
 
+> **Status: In development** — not yet implemented. This folder documents the UX problem and a draft co-researcher prompt for a future tool.
+
 **Stage:** Before fieldwork  
 **Philosophy:** Augmented Rigor — challenge assumptions before they become sunk costs.
 
@@ -7,7 +9,7 @@
 
 Research plans often carry hidden assumptions about user behavior, scope, and success criteria. These rarely surface until after weeks of fieldwork, when revision becomes psychologically and politically costly.
 
-## What This Tool Does
+## What This Tool Will Do
 
 An AI co-researcher adversarially reviews your research plan:
 
@@ -35,3 +37,7 @@ For each section of the plan:
 3. Flag questions that could lead the participant
 4. Suggest one alternative method that would stress-test the same objective
 ```
+
+---
+
+**Live in this toolkit:** [The UX Research Interview Refiner](../interview-refiner/) — gap analysis for interview guides.

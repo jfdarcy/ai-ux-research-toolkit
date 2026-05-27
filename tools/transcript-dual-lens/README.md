@@ -1,5 +1,7 @@
 # Transcript Dual-Lens Analyzer
 
+> **Status: In development** — not yet implemented. This folder documents the UX problem and a draft co-researcher prompt for a future tool.
+
 **Stage:** During synthesis  
 **Philosophy:** Augmented Rigor — two perspectives reveal what one cannot.
 
@@ -7,7 +9,7 @@
 
 Single-researcher transcript coding is vulnerable to confirmation bias. We notice what we expect, deprioritize contradictions, and build narratives that feel coherent but may not be complete.
 
-## What This Tool Does
+## What This Tool Will Do
 
 Runs an independent AI thematic analysis alongside your human coding, then surfaces divergences:
 
@@ -33,3 +35,7 @@ Extract:
 
 After analysis, compare your output to the researcher's themes and highlight divergences only.
 ```
+
+---
+
+**Live in this toolkit:** [The UX Research Interview Refiner](../interview-refiner/) — gap analysis for interview guides.

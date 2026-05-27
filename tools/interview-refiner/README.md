@@ -1,5 +1,7 @@
 # The UX Research Interview Refiner
 
+> **Status: Live** — Streamlit app with local and hosted demo options.
+
 **Stage:** Before fieldwork  
 **Philosophy:** Augmented Rigor — challenge your draft before participants do.
 
