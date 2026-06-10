@@ -75,7 +75,7 @@
           The tools below are concrete proof of that philosophy—each one designed to introduce friction
           at the right moment, not remove it. They exist because the hardest part of research isn't
           collecting data; it's knowing when you're wrong.
-          <strong class="text-ink">One tool is live today;</strong> the rest are in development with draft
+          <strong class="text-ink">Two tools are live today;</strong> the rest are in development with draft
           co-researcher prompts on GitHub.
         </p>
       </div>
@@ -85,11 +85,11 @@
     <section class="pb-24">
       <h2 class="text-xs font-medium uppercase tracking-widest text-stone mb-4">Tools</h2>
       <p class="text-stone leading-relaxed mb-12 max-w-2xl">
-        One live app you can run today. Three more on the roadmap—each folder documents the UX problem
-        and a draft co-researcher prompt, not a finished product yet.
+        Two live apps you can run today. Two more on the roadmap—each in-development folder documents
+        the UX problem and a draft co-researcher prompt.
       </p>
 
-      <h3 class="text-xs font-medium uppercase tracking-widest text-accent mb-8">Live tool</h3>
+      <h3 class="text-xs font-medium uppercase tracking-widest text-accent mb-8">Live tools</h3>
 
       <div class="space-y-16 mb-20">
 
@@ -130,7 +130,7 @@
 
             <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-2">
             <a
-              href="https://interview-refiner-jfdarcy.streamlit.app"
+              href="https://ai-ux-research-toolkit-mkqcfybmnazegnnvu325ml.streamlit.app"
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-ink transition-colors"
@@ -160,6 +160,71 @@
             <p class="text-xs text-stone mt-3 leading-relaxed">
               Not air-gapped: analysis sends your draft to Anthropic or Google. For confidential work,
               run locally. Hosted demo also passes data through Streamlit's servers.
+              Hosted demo may take ~1 min to wake if idle — click through the sleep screen.
+            </p>
+          </div>
+        </article>
+
+        <hr class="border-stone/10" />
+
+        <!-- Thematic Analyzer (Live) -->
+        <article class="group">
+          <div class="flex items-start gap-4 mb-4">
+            <span class="text-xs font-medium text-stone mt-1 tabular-nums">02</span>
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center gap-3 mb-1">
+                <h3 class="font-serif text-2xl font-semibold text-ink group-hover:text-accent transition-colors">
+                  Thematic Analyzer
+                </h3>
+                <span class="text-xs font-medium uppercase tracking-widest text-accent border border-accent/30 px-2 py-0.5 rounded">Live</span>
+              </div>
+              <p class="text-sm text-accent font-medium">During synthesis</p>
+            </div>
+          </div>
+
+          <div class="ml-8 sm:ml-10 space-y-4">
+            <div>
+              <p class="text-xs font-medium uppercase tracking-widest text-stone mb-2">The UX Problem</p>
+              <p class="text-stone leading-relaxed">
+                When a single researcher codes interview transcripts, confirmation bias is inevitable.
+                We notice what we expect to find and quietly deprioritize contradictions—the very
+                signals that often contain the most valuable insights.
+              </p>
+            </div>
+
+            <div>
+              <p class="text-xs font-medium uppercase tracking-widest text-stone mb-2">How It Helps</p>
+              <p class="text-stone leading-relaxed">
+                A Streamlit co-researcher runs a blind thematic analysis on your transcript, then
+                compares it to your working themes and reports only divergences: missed themes,
+                underweighted quotes, and framing differences. Supports Claude (recommended) or Gemini.
+                You provide your own API key — cost and terms depend on your provider account, not the app host.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-2">
+            <a
+              href="https://github.com/jfdarcy/ai-ux-research-toolkit/tree/main/tools/thematic-analyzer"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-ink transition-colors"
+            >
+              View on GitHub
+              <span aria-hidden="true">→</span>
+            </a>
+            <a
+              href="https://github.com/jfdarcy/ai-ux-research-toolkit/issues/new/choose"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm font-medium text-stone hover:text-ink transition-colors"
+            >
+              Report an issue
+              <span aria-hidden="true">→</span>
+            </a>
+            </div>
+            <p class="text-xs text-stone mt-3 leading-relaxed">
+              Live locally — hosted demo not deployed yet. Not air-gapped: analysis sends your
+              transcript to Anthropic or Google. For confidential work, run locally with <code class="text-xs">.\run.ps1</code>.
             </p>
           </div>
         </article>
@@ -173,7 +238,7 @@
         <!-- Research Plan Challenger -->
         <article class="group opacity-90">
           <div class="flex items-start gap-4 mb-4">
-            <span class="text-xs font-medium text-stone mt-1 tabular-nums">02</span>
+            <span class="text-xs font-medium text-stone mt-1 tabular-nums">03</span>
             <div class="flex-1">
               <div class="flex flex-wrap items-center gap-3 mb-1">
                 <h3 class="font-serif text-2xl font-semibold text-ink group-hover:text-accent transition-colors">
@@ -206,55 +271,6 @@
 
             <a
               href="https://github.com/jfdarcy/ai-ux-research-toolkit/tree/main/tools/research-plan-challenger"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 text-sm font-medium text-stone hover:text-ink transition-colors mt-2"
-            >
-              View concept on GitHub
-              <span aria-hidden="true">→</span>
-            </a>
-          </div>
-        </article>
-
-        <hr class="border-stone/10" />
-
-        <!-- Thematic Analyzer -->
-        <article class="group opacity-90">
-          <div class="flex items-start gap-4 mb-4">
-            <span class="text-xs font-medium text-stone mt-1 tabular-nums">03</span>
-            <div class="flex-1">
-              <div class="flex flex-wrap items-center gap-3 mb-1">
-                <h3 class="font-serif text-2xl font-semibold text-ink group-hover:text-accent transition-colors">
-                  Thematic Analyzer
-                </h3>
-                <span class="text-xs font-medium uppercase tracking-widest text-stone border border-stone/20 px-2 py-0.5 rounded">In development</span>
-              </div>
-              <p class="text-sm text-stone font-medium">During synthesis · prompt scaffold</p>
-            </div>
-          </div>
-
-          <div class="ml-8 sm:ml-10 space-y-4">
-            <div>
-              <p class="text-xs font-medium uppercase tracking-widest text-stone mb-2">The UX Problem</p>
-              <p class="text-stone leading-relaxed">
-                When a single researcher codes interview transcripts, confirmation bias is inevitable.
-                We notice what we expect to find and quietly deprioritize contradictions—the very
-                signals that often contain the most valuable insights.
-              </p>
-            </div>
-
-            <div>
-              <p class="text-xs font-medium uppercase tracking-widest text-stone mb-2">Planned approach</p>
-              <p class="text-stone leading-relaxed">
-                A Streamlit co-researcher runs a blind thematic analysis on your transcript,
-                then compares it to your working themes and reports only divergences: missed
-                themes, underweighted quotes, and framing differences — the signals confirmation
-                bias hides.
-              </p>
-            </div>
-
-            <a
-              href="https://github.com/jfdarcy/ai-ux-research-toolkit/tree/main/tools/thematic-analyzer"
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex items-center gap-2 text-sm font-medium text-stone hover:text-ink transition-colors mt-2"

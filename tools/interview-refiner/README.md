@@ -30,7 +30,10 @@ It also generates an **independent parallel guide** built only from your objecti
 
 | Option | Best for | Link |
 |--------|----------|------|
-| **Hosted demo** | Quick try in the browser — paste your own API key | [interview-refiner-jfdarcy.streamlit.app](https://interview-refiner-jfdarcy.streamlit.app) |
+| **Hosted demo** | Quick try in the browser — paste your own API key | [ai-ux-research-toolkit-mkqcfybmnazegnnvu325ml.streamlit.app](https://ai-ux-research-toolkit-mkqcfybmnazegnnvu325ml.streamlit.app) |
+
+> Hosted demo may take ~1 min to wake if idle — click through the sleep screen.
+
 | **Run locally** | Confidential client work; data skips the demo server | [Setup instructions below](#step-1-get-the-code) |
 
 ---
@@ -229,7 +232,7 @@ To publish the hosted demo (BYOK — **do not** add API keys to Cloud secrets):
 4. Leave **Secrets** empty — users paste their own keys in the sidebar
 5. Deploy; update the demo URL in `index.html` and this README if your app URL differs
 
-Expected URL format: `https://interview-refiner-jfdarcy.streamlit.app` (you choose the subdomain at deploy time).
+Your deployed URL (example): `https://ai-ux-research-toolkit-mkqcfybmnazegnnvu325ml.streamlit.app` — update links in `index.html` and this README if yours differs.
 
 ---
 
