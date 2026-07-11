@@ -17,6 +17,8 @@ This repository is a living portfolio of that philosophy in practice—each tool
 | *In development* | [Research Plan Challenger](./tools/research-plan-challenger/) | Untested assumptions hide in research plans until it's too late | [Concept →](./tools/research-plan-challenger/) |
 | *In development* | [Insight Rigidity Checker](./tools/insight-rigidity-checker/) | Teams fall in love with insights before validating them against evidence | [Concept →](./tools/insight-rigidity-checker/) |
 
+![The UX Research Interview Refiner — hosted Streamlit demo](./docs/images/interview-refiner.png)
+
 > Hosted demo may take ~1 min to wake if idle — click through the sleep screen.
 
 ---
