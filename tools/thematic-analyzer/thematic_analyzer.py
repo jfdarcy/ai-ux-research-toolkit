@@ -431,7 +431,7 @@ def main() -> None:
 
     st.title("Thematic Analyzer")
     st.caption(
-        "Augmented Rigor — a blind co-researcher pass on your transcript, "
+        "Under development — Augmented Rigor: a blind co-researcher pass on your transcript, "
         "then divergence-only comparison with your working themes."
     )
 

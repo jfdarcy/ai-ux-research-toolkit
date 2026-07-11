@@ -1,6 +1,6 @@
 # Thematic Analyzer
 
-> **Status: Live** — Streamlit app with local and hosted demo options.
+> **Status: In development** — Streamlit app in progress. Run locally from this folder; hosted demo not deployed yet.
 
 **Stage:** During synthesis  
 **Philosophy:** Augmented Rigor — a parallel perspective reveals what one pass cannot.

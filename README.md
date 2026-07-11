@@ -4,7 +4,7 @@
 
 To enhance the depth and objectivity of my work, I treat Artificial Intelligence (AI) as a tireless **"co-researcher"** rather than a simple automation tool. My goal is not to work faster, but to leverage AI to challenge my own assumptions and ensure the highest quality of insights.
 
-This repository is a living portfolio of that philosophy in practice—each tool addresses a specific moment in the research lifecycle where human judgment is most vulnerable to bias, blind spots, or premature certainty. **Two tools are live today;** the others are documented as in-development concepts with draft co-researcher prompts.
+This repository is a living portfolio of that philosophy in practice—each tool addresses a specific moment in the research lifecycle where human judgment is most vulnerable to bias, blind spots, or premature certainty. **One tool is live today;** the others are in development—some as working Streamlit apps, others as documented concepts with draft co-researcher prompts.
 
 ---
 
@@ -13,7 +13,7 @@ This repository is a living portfolio of that philosophy in practice—each tool
 | Status | Tool | UX Problem | Link |
 |--------|------|------------|------|
 | **Live** | [The UX Research Interview Refiner](./tools/interview-refiner/) | Interview guides hide leading questions and coverage gaps until fieldwork | [Try demo →](https://ai-ux-research-toolkit-mkqcfybmnazegnnvu325ml.streamlit.app) · [Code →](./tools/interview-refiner/) |
-| **Live** | [Thematic Analyzer](./tools/thematic-analyzer/) | Single-researcher thematic coding is vulnerable to confirmation bias | [Code →](./tools/thematic-analyzer/) · *Hosted demo not deployed yet* |
+| *In development* | [Thematic Analyzer](./tools/thematic-analyzer/) | Single-researcher thematic coding is vulnerable to confirmation bias | [Code →](./tools/thematic-analyzer/) · *Run locally; hosted demo not deployed yet* |
 | *In development* | [Research Plan Challenger](./tools/research-plan-challenger/) | Untested assumptions hide in research plans until it's too late | [Concept →](./tools/research-plan-challenger/) |
 | *In development* | [Insight Rigidity Checker](./tools/insight-rigidity-checker/) | Teams fall in love with insights before validating them against evidence | [Concept →](./tools/insight-rigidity-checker/) |
 
